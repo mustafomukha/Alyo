@@ -681,10 +681,41 @@
 
                                     <p class="mil-light-soft mil-up mil-mb-30">Subscribe our newsletter:</p>
 
-                                    <form class="mil-subscribe-form mil-up">
-                                        <input type="text" placeholder="Enter our email">
-                                        <button type="submit" class="mil-button mil-icon-button-sm mil-arrow-place"></button>
-                                    </form>
+<form class="mil-subscribe-form mil-up" id="telegram-form">
+    <input type="text" placeholder="Telegram username" id="email">
+</form><br>
+<form class="mil-subscribe-form mil-up" id="telegram-formm">
+    <input type="text" placeholder="Savolingiz" id="question">
+    <button type="submit" class="mil-button mil-icon-button-sm mil-arrow-place"></button>
+</form>
+
+<script>
+document.getElementById("telegram-formm").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const email = document.getElementById("email").value;
+  const question = document.getElementById("question").value;
+  
+  // Проверка, чтобы оба поля были заполнены
+  if (question.trim() === "" || question.trim() === "") {
+    alert("Iltimos ikala boshliq ni to'ldiring!");
+    return;
+  }
+
+  const token = "6142410332:AAFqLygldFd8BispYJWNY5-TLYKXGjDKLRw";
+  const chatId = "626084407";
+  const message = `Alyo saytidan savol keldi!:\n\nUsername: ${email}\n\nSavol: ${question}`;
+
+  fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ chat_id: chatId, text: message })
+  })
+  .then(response => response.json())
+  .then(data => alert("Sent to Telegram!"))
+  .catch(error => console.log("Error:", error));
+});
+</script>
 
                                 </div>
                                 <div class="col-md-7 col-lg-6">
